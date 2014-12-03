@@ -1,4 +1,4 @@
-RC_Files
+Dot files
 ========
 
-Resource files. Mainly my Vim configuration, will be adding more
+Vimrc
