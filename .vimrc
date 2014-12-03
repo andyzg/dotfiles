@@ -1,34 +1,71 @@
 set shell=/bin/bash
-" execute pathogen#infect()
 
-set nocompatible              " be iMproved
-filetype off                  " required!
+syntax enable
+set t_Co=256
+colorscheme solarized
+set background=dark
 
+" Add line above/below without insert mode
+nmap <C-k> O<Esc>j
+nmap <C-j> o<Esc>k
+
+" Showing whitespace
+set list listchars=tab:\ \ ,trail:·
+
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set ai
+set number
+set ruler " show the cursor
+
+" Shortcuts for folds
+" inoremap <F9> <C-O>za
+" nnoremap <F9> za
+" onoremap <F9> <C-C>za
+" vnoremap <F9> zf
+inoremap {<CR>  {<CR>}<Esc>ko
+
+" Shortcut for pasting from clipboard
+noremap gp "*p
+noremap gP "*P
+noremap gyy "*yy
+
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+" autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePost *.md silent! !python -m markdown -x markdown.extensions.tables % > %:t:r.md.html & ./build.sh %:t:r
+" set tw=79
+set backspace=2
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
 " Nerdtree to see directory tree
 Bundle 'scrooloose/nerdtree'
 map <C-t> :NERDTreeToggle<CR>
-" autocmd vimenter * NERDTree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 map <C-l> :tabn<CR>
 map <C-h> :tabp<CR>
 map <C-n> :tabnew<CR>
 
-" fugitive for git wrapper in vim
-Bundle 'tpope/vim-fugitive'
-
 " syntastic for syntax error check
 Bundle 'scrooloose/syntastic'
+let g:syntastic_always_populate_loc_list = 1
 
 " Tagbar for awesome class strucutre viewing
-Bundle 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
+" Bundle 'majutsushi/tagbar'
+" nmap <F8> :TagbarToggle<CR>
 
 " Vim multiple cursor, multiple line editing
 Bundle 'terryma/vim-multiple-cursors'
@@ -41,47 +78,35 @@ let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-let g:ctrlp_cmd = 'CtrlPMRU'
+" let g:ctrlp_cmd = 'CtrlPMRU'
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '*',
-  \ 'file': '\v\.(exe|so|dll|js|cpp)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-" AutoClose automatically adds brackets
-Bundle 'Townk/vim-autoclose'
 
 " easymotion allowing simpler way to use motion
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = '<Leader>'
 
-" Autocomplete some stuff
-" Bundle 'Valloric/YouCompleteMe'
-" let g:ycm_max_diagnostics_to_display = 10
-" let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<C-j>', '<Enter>']
-" let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<C-k>']
-" let g:ycm_autoclose_preview_window_after_insertion = 1
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
 
-syntax on
-call vundle#end()
-filetype plugin indent on
+Plugin 'bling/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
 
-" Add line above/below without insert mode
-nmap <C-k> O<Esc>j
-nmap <C-j> o<Esc>k
+Plugin 'tpope/vim-markdown'
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
-colorscheme solarized
-set background=light
-set number
-set ai
-set mouse=
+Plugin 'tpope/vim-surround'
 
-" Shortcuts for folds
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-C>za
-vnoremap <F9> zf
+Plugin 'tpope/vim-repeat'
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
