@@ -39,9 +39,10 @@ noremap gyy "*yy
 
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
-" autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePost *.md silent! !python -m markdown -x markdown.extensions.tables % > %:t:r.md.html & ./build.sh %:t:r
-" set tw=79
+autocmd BufWritePre !(*.md) :%s/\s\+$//e
+" autocmd BufWritePost *.md silent! !python -m markdown -x markdown.extensions.tables % > %:t:r.html 
+" & ./build.sh %:t:r
+set tw=80
 set backspace=2
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -55,13 +56,13 @@ Plugin 'gmarik/Vundle.vim'
 " Nerdtree to see directory tree
 Bundle 'scrooloose/nerdtree'
 map <C-t> :NERDTreeToggle<CR>
-map <C-l> :tabn<CR>
-map <C-h> :tabp<CR>
-map <C-n> :tabnew<CR>
+" map <C-l> :tabn<CR>
+" map <C-h> :tabp<CR>
+" map <C-n> :tabnew<CR>
 
 " syntastic for syntax error check
-Bundle 'scrooloose/syntastic'
-let g:syntastic_always_populate_loc_list = 1
+" Bundle 'scrooloose/syntastic'
+" let g:syntastic_always_populate_loc_list = 1
 
 " Tagbar for awesome class strucutre viewing
 " Bundle 'majutsushi/tagbar'
@@ -101,11 +102,47 @@ let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 
 Plugin 'tpope/vim-markdown'
+" Plugin 'plasticboy/vim-markdown'
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 Plugin 'tpope/vim-surround'
+let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 Plugin 'tpope/vim-repeat'
+
+Plugin 'majutsushi/tagbar'
+let g:tagbar_ctags_bin="~/.vim/ctags"
+nmap = :TagbarToggle<CR>
+
+Plugin 'xolox/vim-easytags'
+let g:easytags_file = '~/.vim/tags'
+let g:easytags_cmd = '~/.vim/ctags'
+set tags=./tags;
+let g:easytags_dynamic_files = 1
+let g:easytags_events = ['BufWritePost']
+" map <C-[> <CR><C-t>
+
+" Plugin 'Townk/vim-autoclose'
+
+Plugin 'xolox/vim-misc'
+
+Plugin 'fatih/vim-go'
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap gd <Plug>(go-def-vertical)
+Plugin 'vim-jp/vim-go-extra'
+
+Plugin 'godlygeek/tabular'
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
+
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'pangloss/vim-javascript'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'klen/python-mode'
+let g:pymode_rope = 0
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
