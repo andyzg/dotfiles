@@ -15,12 +15,13 @@ set list listchars=tab:\ \ ,trail:·
 if has('gui_running')
     set background=light
 else
+    " set background=light
     set background=dark
 endif
 
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set ai
 set number
 set ruler " show the cursor
@@ -37,10 +38,23 @@ noremap gp "*p
 noremap gP "*P
 noremap gyy "*yy
 
+" Set space as a shortcut
+let mapleader = "\<Space>"
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>l <C-w>l
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>j <C-w>j
+nnoremap <Leader>k <C-w>k
+nnoremap <Leader>u <C-u>
+nnoremap <Leader>d <C-d>
+nnoremap <Leader>q :wq<CR>
+nnoremap <Leader>n :vne<CR>
+
+
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
-autocmd BufWritePre !(*.md) :%s/\s\+$//e
-" autocmd BufWritePost *.md silent! !python -m markdown -x markdown.extensions.tables % > %:t:r.html 
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePost *.md silent! !python -m markdown -x markdown.extensions.tables % > %:t:r.html
 " & ./build.sh %:t:r
 set tw=80
 set backspace=2
@@ -55,7 +69,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " Nerdtree to see directory tree
 Bundle 'scrooloose/nerdtree'
-map <C-t> :NERDTreeToggle<CR>
+nnoremap <Leader>t :NERDTreeToggle<CR>
 " map <C-l> :tabn<CR>
 " map <C-h> :tabp<CR>
 " map <C-n> :tabnew<CR>
@@ -73,7 +87,7 @@ Bundle 'terryma/vim-multiple-cursors'
 
 " ctrlp for file finder in vim
 Bundle 'kien/ctrlp.vim'
-let g:ctrlp_map = '<c-p>'
+let g:ctrlp_map = '<Leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
@@ -138,6 +152,11 @@ Plugin 'godlygeek/tabular'
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
 Plugin 'Valloric/YouCompleteMe'
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf = 0
+set cmdheight=2
+set shortmess=a
+
 Plugin 'pangloss/vim-javascript'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'digitaltoad/vim-jade'
