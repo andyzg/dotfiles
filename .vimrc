@@ -4,6 +4,7 @@ syntax enable
 set t_Co=256
 colorscheme solarized
 set background=dark
+autocmd! GUIEnter * set vb t_vb=
 
 " Add line above/below without insert mode
 nmap <C-k> O<Esc>j
@@ -13,15 +14,15 @@ nmap <C-j> o<Esc>k
 set list listchars=tab:\ \ ,trail:·
 
 if has('gui_running')
-    set background=light
+    set background=dark
 else
     " set background=light
     set background=dark
 endif
 
 set expandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set ai
 set number
 set ruler " show the cursor
@@ -38,6 +39,20 @@ noremap gp "*p
 noremap gP "*P
 noremap gyy "*yy
 
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+" set switchbuf+=usetab,newtab
+set switchbuf+=useopen,usetab,newtab
+
 " Set space as a shortcut
 let mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
@@ -49,7 +64,12 @@ nnoremap <Leader>u <C-u>
 nnoremap <Leader>d <C-d>
 nnoremap <Leader>q :wq<CR>
 nnoremap <Leader>n :vne<CR>
+nnoremap <Leader>m :new<CR>
+nmap <Leader>g :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
+nnoremap <Leader>x :ccl<CR>
 
+" Utility shortcuts
+nnoremap <Leader>J <Esc>:%!python -m json.tool<CR>
 
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
@@ -75,8 +95,12 @@ nnoremap <Leader>t :NERDTreeToggle<CR>
 " map <C-n> :tabnew<CR>
 
 " syntastic for syntax error check
-" Bundle 'scrooloose/syntastic'
-" let g:syntastic_always_populate_loc_list = 1
+Bundle 'scrooloose/syntastic'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_mode_map = {
+  \  "mode": "passive"
+  \ }
+nnoremap <Leader>b :SyntasticCheck<CR>
 
 " Tagbar for awesome class strucutre viewing
 " Bundle 'majutsushi/tagbar'
@@ -96,9 +120,9 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 " let g:ctrlp_cmd = 'CtrlPMRU'
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|(node_modules|bower_components|vendor))$',
   \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
+  \ 'link': '',
   \ }
 
 
@@ -124,16 +148,16 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 Plugin 'tpope/vim-repeat'
 
-Plugin 'majutsushi/tagbar'
-let g:tagbar_ctags_bin="~/.vim/ctags"
-nmap = :TagbarToggle<CR>
+" Plugin 'majutsushi/tagbar'
+" let g:tagbar_ctags_bin="~/.vim/ctags"
+" nmap = :TagbarToggle<CR>
 
-Plugin 'xolox/vim-easytags'
-let g:easytags_file = '~/.vim/tags'
-let g:easytags_cmd = '~/.vim/ctags'
-set tags=./tags;
-let g:easytags_dynamic_files = 1
-let g:easytags_events = ['BufWritePost']
+" Plugin 'xolox/vim-easytags'
+" let g:easytags_file = '~/.vim/tags'
+" let g:easytags_cmd = '~/.vim/ctags'
+" set tags=./tags;
+" let g:easytags_dynamic_files = 1
+" let g:easytags_events = ['BufWritePost']
 " map <C-[> <CR><C-t>
 
 " Plugin 'Townk/vim-autoclose'
@@ -162,6 +186,11 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'klen/python-mode'
 let g:pymode_rope = 0
+
+Plugin 'leafgarland/typescript-vim'
+let g:syntastic_typescript_tsc_fname = ''
+" Plugin 'shougo/vimproc.vim'
+" Plugin 'quramy/tsuquyomi'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
