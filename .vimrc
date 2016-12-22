@@ -16,7 +16,6 @@ set list listchars=tab:\ \ ,trail:·
 if has('gui_running')
     set background=dark
 else
-    " set background=light
     set background=dark
 endif
 
@@ -74,7 +73,7 @@ nnoremap <Leader>J <Esc>:%!python -m json.tool<CR>
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePost *.md silent! !python -m markdown -x markdown.extensions.tables % > %:t:r.html
+" autocmd BufWritePost *.md silent! !python -m markdown -x markdown.extensions.tables % > %:t:r.html
 " & ./build.sh %:t:r
 set tw=80
 set backspace=2
@@ -90,9 +89,9 @@ Plugin 'gmarik/Vundle.vim'
 " Nerdtree to see directory tree
 Bundle 'scrooloose/nerdtree'
 nnoremap <Leader>t :NERDTreeToggle<CR>
-" map <C-l> :tabn<CR>
-" map <C-h> :tabp<CR>
-" map <C-n> :tabnew<CR>
+map <C-l> :tabn<CR>
+map <C-h> :tabp<CR>
+map <C-n> :tabnew<CR>
 
 " syntastic for syntax error check
 Bundle 'scrooloose/syntastic'
@@ -148,9 +147,9 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 Plugin 'tpope/vim-repeat'
 
-" Plugin 'majutsushi/tagbar'
-" let g:tagbar_ctags_bin="~/.vim/ctags"
-" nmap = :TagbarToggle<CR>
+Plugin 'majutsushi/tagbar'
+let g:tagbar_ctags_bin="~/.vim/ctags"
+nmap = :TagbarToggle<CR>
 
 " Plugin 'xolox/vim-easytags'
 " let g:easytags_file = '~/.vim/tags'
@@ -159,8 +158,6 @@ Plugin 'tpope/vim-repeat'
 " let g:easytags_dynamic_files = 1
 " let g:easytags_events = ['BufWritePost']
 " map <C-[> <CR><C-t>
-
-" Plugin 'Townk/vim-autoclose'
 
 Plugin 'xolox/vim-misc'
 
@@ -192,6 +189,10 @@ let g:syntastic_typescript_tsc_fname = ''
 " Plugin 'shougo/vimproc.vim'
 " Plugin 'quramy/tsuquyomi'
 
+Plugin 'xuhdev/vim-latex-live-preview'
+let g:livepreview_previewer = 'open -a Preview'
+
+so ~/Documents/Github/vim-palette/palette.vim
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
