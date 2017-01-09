@@ -192,7 +192,6 @@ let g:syntastic_typescript_tsc_fname = ''
 Plugin 'xuhdev/vim-latex-live-preview'
 let g:livepreview_previewer = 'open -a Preview'
 
-so ~/Documents/Github/vim-palette/palette.vim
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
