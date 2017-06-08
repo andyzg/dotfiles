@@ -183,6 +183,12 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'klen/python-mode'
 let g:pymode_rope = 0
+let g:pymode_lint_config = '$HOME/.dotfiles/pylint.rc'
+let g:pymode_lint_ignore = "W0401,E501,E266"
+set nofoldenable
+
+Plugin 'omnisharp/omnisharp-vim'
+Plugin 'tpope/vim-dispatch'
 
 Plugin 'leafgarland/typescript-vim'
 let g:syntastic_typescript_tsc_fname = ''
