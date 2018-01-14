@@ -119,7 +119,7 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 " let g:ctrlp_cmd = 'CtrlPMRU'
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|(node_modules|bower_components|vendor))$',
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|(node_modules|bower_components|vendor|venv))$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': '',
   \ }
@@ -197,6 +197,8 @@ let g:syntastic_typescript_tsc_fname = ''
 
 Plugin 'xuhdev/vim-latex-live-preview'
 let g:livepreview_previewer = 'open -a Preview'
+
+Plugin 'christoomey/vim-tmux-navigator'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
