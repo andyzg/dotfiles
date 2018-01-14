@@ -55,4 +55,6 @@ alias refresh="source ~/.zshrc"
 alias pg-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias pg-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 
-alias 459="ssh ece -t tmux attach -t ece459"
+function 459() {
+  ssh ece -t "tmux new-session -s ece459 || tmux attach-session -t ece459 ";
+}
