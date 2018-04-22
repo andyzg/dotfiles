@@ -12,6 +12,7 @@ alias team="cd ~/Documents/Github/team.hackthenorth.com/"
 alias 2b="cd ~/Documents/Github/school/2B/"
 alias 2B="2b"
 alias gh="cd ~/Documents/Github/"
+alias fydp="cd ~/Documents/Github/fydp"
 
 # Git shortcuts
 alias gsh="git show "
@@ -55,6 +56,4 @@ alias refresh="source ~/.zshrc"
 alias pg-start="launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias pg-stop="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 
-function 459() {
-  ssh ece -t "tmux new-session -s ece459 || tmux attach-session -t ece459 ";
-}
+alias se='cd ~/Github/se-2018-class-profile'
