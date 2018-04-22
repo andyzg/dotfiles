@@ -20,8 +20,8 @@ else
 endif
 
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set ai
 set number
 set ruler " show the cursor
@@ -184,12 +184,12 @@ Plugin 'digitaltoad/vim-jade'
 Plugin 'klen/python-mode'
 let g:pymode_rope = 0
 let g:pymode_lint_config = '$HOME/.dotfiles/pylint.rc'
-let g:pymode_lint_ignore = "W0401,E501,E266"
+let g:pymode_lint_ignore = "W0401,E501,E266,E231"
 set nofoldenable
 
 Plugin 'omnisharp/omnisharp-vim'
 Plugin 'tpope/vim-dispatch'
-
+Plugin 'wavded/vim-stylus'
 Plugin 'leafgarland/typescript-vim'
 let g:syntastic_typescript_tsc_fname = ''
 " Plugin 'shougo/vimproc.vim'
