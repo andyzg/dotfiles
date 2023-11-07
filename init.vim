@@ -124,6 +124,7 @@ map <C-l> :tabn<CR>
 map <C-h> :tabp<CR>
 map <C-n> :tabnew<CR>
 
+
 " syntastic for syntax error check
 Bundle 'scrooloose/syntastic'
 let g:syntastic_always_populate_loc_list = 1
@@ -234,6 +235,10 @@ nnoremap <Leader>f :Ack!<Space>
 " Plugin 'tomlion/vim-solidity'
 
 " Plugin 'github/copilot.vim'
+imap <script><silent><nowait><expr> <C-g> codeium#Accept()
+imap <C-[>  <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <C-]>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-x>   <Cmd>call codeium#Clear()<CR>
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -271,6 +276,9 @@ Plug 'nvim-lualine/lualine.nvim'
 
 " Codeium
 Plug 'Exafunction/codeium.vim'
+
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 
 set completeopt=menu,menuone,noselect
@@ -345,3 +353,4 @@ lua <<EOF
   --   capabilities = capabilities
   -- }
 EOF
+
