@@ -236,8 +236,8 @@ nnoremap <Leader>f :Ack!<Space>
 
 " Plugin 'github/copilot.vim'
 imap <script><silent><nowait><expr> <C-g> codeium#Accept()
-imap <C-[>  <Cmd>call codeium#CycleCompletions(1)<CR>
-imap <C-]>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-;>  <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <C-,>   <Cmd>call codeium#CycleCompletions(-1)<CR>
 imap <C-x>   <Cmd>call codeium#Clear()<CR>
 
 " All of your Plugins must be added before the following line
